@@ -14,6 +14,9 @@
   ],
   "scripts": {
     "test": "babel-node ./node_modules/tape/bin/tape ./tests/**/*.js | ./node_modules/faucet/bin/cmd.js",
+    "test-unit": "mocha -r tests/setup.js pouchdb-original/tests/unit/test.*.js",
+    "test-mapreduce": "mocha -r tests/setup.js pouchdb-original/tests/mapreduce/test.*.js",
+    "test-integration": "mocha -r tests/setup.js pouchdb-original/tests/integration/test.*.js",
     "standard": "node ./node_modules/standard/bin/cmd.js",
     "clean": "lerna clean && rm -rf ./example/node_modules && rm -rf ./node_modules",
     "postinstall": "lerna bootstrap && cd example && npm install && cd ..",
@@ -28,7 +31,12 @@
   "homepage": "https://github.com/stockulus/pouchdb-react-native#readme",
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.14.0",
     "lerna": "2.0.0-beta.24",
+    "mocha": "^3.0.2",
+    "react": "^15.2.1",
+    "react-native": "^0.31.0",
+    "react-native-mock": "^0.2.6",
     "standard": "8.0.0"
   },
   "standard": {

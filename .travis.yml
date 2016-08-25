@@ -1,0 +1,37 @@
+language: node_js
+
+node_js:
+  - "6"
+
+services:
+  - docker
+
+git:
+  depth: 30
+
+sudo:
+  false
+
+before_install:
+  # Because Saucelabs doesnt proxy 5984 on OSX
+  - "if [ -z \"$COUCH_HOST\" ]; then export COUCH_HOST=http://127.0.0.1:3000; fi"
+
+before_script:
+  - git submodule init
+  - git submodule update
+  - cd pouchdb-original && npm i && cd -
+  - sh pouchdb-original/bin/run-couchdb-on-travis.sh
+
+script: npm run $COMMAND
+
+env:
+  global:
+  - NPM_CONFIG_PROGRESS="false"
+
+  matrix:
+  - COMMAND=test-unit
+  - COMMAND=test-integration
+
+cache:
+  directories:
+  - $HOME/.npm
